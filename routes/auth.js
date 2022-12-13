@@ -16,6 +16,12 @@ const { validarJWT } = require('../middlewares/validar-jwt');
 // crear el router
 const router = Router();
 
+// post es para crear
+// get es para obtener
+// put es para actualizar
+// delete es para eliminar
+
+// crear usuario
 router.post(
 	'/new',
 	[
@@ -30,6 +36,7 @@ router.post(
 	crearUsuario
 );
 
+// login
 router.post(
 	'/',
 	[
@@ -42,6 +49,8 @@ router.post(
 	loginUsuario
 );
 
+// revalidar token
+// autenticado los usuarios de forma pasiva el servidor le envía un token
 router.get('/renew', validarJWT, revalidarToken);
 
 module.exports = router;
