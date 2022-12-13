@@ -4,12 +4,14 @@ const Usuario = require('../models/Usuario');
 const { generarJWT } = require('../helpers/jwt');
 
 const crearUsuario = async (req, res = response) => {
+	// req.body es lo que se envía en el body de la petición
 	const { email, password } = req.body;
 
 	try {
 		let usuario = await Usuario.findOne({ email });
 
 		if (usuario) {
+			// indicar el status de la respuesta
 			return res.status(400).json({
 				ok: false,
 				msg: 'El usuario ya existe',

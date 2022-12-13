@@ -24,6 +24,7 @@ app.use(cors());
 app.use(express.static('public'));
 
 // Lectura y parseo del body
+// para que el servidor entienda los datos que se envían en el body
 app.use(express.json());
 
 // Rutas
