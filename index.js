@@ -27,6 +27,8 @@ app.use(express.static('public'));
 app.use(express.json());
 
 // Rutas
+// ruta que se va a ejecutar cuando se haga una petición a la ruta '/'
+// .use('ruta', require('archivo'))
 app.use('/api/auth', require('./routes/auth'));
 // TODO: CRUD: Eventos
 
