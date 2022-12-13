@@ -1,6 +1,7 @@
 // require es igual a import en JS pero se usa en node
 // Importar express
 const express = require('express');
+// Importar dotenv para variables de entorno
 require('dotenv').config();
 const cors = require('cors');
 const { dbConnection } = require('./database/config');
@@ -15,6 +16,11 @@ dbConnection();
 app.use(cors());
 
 // Directorio Público
+// para mostrar index.html
+// use es un middleware
+// un middleware es una función que se ejecuta cuando algo pasa en la aplicación (peticiones, respuestas, etc)
+// express.static sirve para servir contenido estático
+// (la carpeta public)
 app.use(express.static('public'));
 
 // Lectura y parseo del body
