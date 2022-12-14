@@ -4,6 +4,7 @@
 */
 // router sirve para crear rutas
 const { Router } = require('express');
+// check sirve para validar los campos
 const { check } = require('express-validator');
 const { validarCampos } = require('../middlewares/validar-campos');
 const {
@@ -21,11 +22,14 @@ const router = Router();
 // put es para actualizar
 // delete es para eliminar
 
+// sintaxis router.<metodo>('<ruta>', <middlewares>, <funcion>)
+
 // crear usuario
 router.post(
 	'/new',
 	[
 		// middlewares
+		// sintaxis check('<campo>', '<mensaje de error>').<metodo de validacion>
 		check('name', 'El nombre es obligatorio').not().isEmpty(),
 		check('email', 'El email es obligatorio').isEmail(),
 		check('password', 'El password debe de ser de 6 caracteres').isLength({
