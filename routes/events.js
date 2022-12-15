@@ -4,6 +4,10 @@
 */
 // router sirve para crear rutas
 const { Router } = require('express');
+// express validator
+const { check } = require('express-validator');
+const { validarCampos } = require('../middlewares/validar-campos');
+const { isDate } = require('../helpers/isDate');
 const {
 	getEventos,
 	crearEvento,
@@ -22,7 +26,16 @@ router.use(validarJWT);
 router.get('/', getEventos);
 
 // crear un evento nuevo
-router.post('/', crearEvento);
+router.post(
+	'/',
+	[
+		check('title', 'El título es obligatorio').not().isEmpty(),
+		check('start', 'Fecha de inicio es obligatoria').custom(isDate),
+		check('end', 'Fecha de finalización es obligatoria').custom(isDate),
+		validarCampos,
+	],
+	crearEvento
+);
 
 // actualiza el evento
 router.put('/:id', actualizarEvento);
