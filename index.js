@@ -31,7 +31,7 @@ app.use(express.json());
 // ruta que se va a ejecutar cuando se haga una petición a la ruta '/'
 // .use('ruta', require('archivo'))
 app.use('/api/auth', require('./routes/auth'));
-// TODO: CRUD: Eventos
+app.use('/api/events', require('./routes/events'));
 
 // Escuchar peticiones
 // process.env.PORT es una variable de entorno en .env
