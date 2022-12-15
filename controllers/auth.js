@@ -24,7 +24,10 @@ const crearUsuario = async (req, res = response) => {
 		usuario = new Usuario(req.body);
 
 		// Encriptar contraseña
+		// se crea una variable que va a generar el salt
+		// el salt es una cadena de texto que se va a añadir al password
 		const salt = bcrypt.genSaltSync();
+		// toma el password y lo encripta con el salt
 		usuario.password = bcrypt.hashSync(password, salt);
 		// Guardar usuario
 		await usuario.save();
@@ -49,11 +52,13 @@ const crearUsuario = async (req, res = response) => {
 };
 
 const loginUsuario = async (req, res = response) => {
+	// extraer el email y el password del body
 	const { email, password } = req.body;
-
+	// try catch para manejar los errores de la petición
 	try {
+		// buscar el usuario por el email para ver si existe uno con ese email
 		const usuario = await Usuario.findOne({ email });
-
+		// si no existe se manda un error
 		if (!usuario) {
 			return res.status(400).json({
 				ok: false,
@@ -62,8 +67,10 @@ const loginUsuario = async (req, res = response) => {
 		}
 
 		// Confirmar los passwords
+		// se compara el password que se envía con el password que esta en la base de datos
+		// compareSync(cliente, base de datos)
 		const validPassword = bcrypt.compareSync(password, usuario.password);
-
+		// si no es valido se manda un error
 		if (!validPassword) {
 			return res.status(400).json({
 				ok: false,
@@ -74,6 +81,7 @@ const loginUsuario = async (req, res = response) => {
 		// Generar JWT
 		const token = await generarJWT(usuario.id, usuario.name);
 
+		// si todo sale bien se manda se inicia sección y se manda la respuesta
 		res.json({
 			ok: true,
 			uid: usuario.id,
@@ -81,6 +89,8 @@ const loginUsuario = async (req, res = response) => {
 			token,
 		});
 	} catch (error) {
+		// si hay un error se manda el error al cliente
+		// y en consola un error
 		console.log(error);
 		res.status(500).json({
 			ok: false,
