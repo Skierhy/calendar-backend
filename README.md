@@ -1,3 +1,3 @@
 # Backend MERN - Calendar
 
-Backend que creamos en mi curso de React: de cero a experto
+Backend que creamos en el curso de react
