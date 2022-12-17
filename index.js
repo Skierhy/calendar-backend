@@ -33,6 +33,15 @@ app.use(express.json());
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/events', require('./routes/events'));
 
+/* Sirviendo el archivo index.html. */
+// lo que que cualquier ruta en el servidor que no sea /api/...
+// ninguna especifica de arriba de código
+// haremos un get lo que haces es regresar el index.html
+// __dirname es el path inicial de servidor
+app.get('*', (req, res) => {
+	res.sendFile(__dirname + 'public/index.html');
+});
+
 // Escuchar peticiones
 // process.env.PORT es una variable de entorno en .env
 // callback es una función que se ejecuta cuando el servidor está corriendo
