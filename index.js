@@ -33,13 +33,15 @@ app.use(express.json());
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/events', require('./routes/events'));
 
+const path = require('path');
+app.use(express.static(path.join(__dirname, 'public')));
 /* Sirviendo el archivo index.html. */
 // lo que que cualquier ruta en el servidor que no sea /api/...
 // ninguna especifica de arriba de código
 // haremos un get lo que haces es regresar el index.html
 // __dirname es el path inicial de servidor
-app.get('*', (req, res) => {
-	res.sendFile(__dirname + 'public/index.html');
+app.get('/*', function (req, res) {
+	res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 // Escuchar peticiones
